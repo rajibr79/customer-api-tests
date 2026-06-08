@@ -3,14 +3,18 @@
 Playwright-based API automation framework for testing the Customer API through a generated TypeScript SDK.
 
 ## Architecture
-
+```text
 Playwright
-    ↓
+    |
+    v
 Customer SDK
-    ↓
+    |
+    v
 Customer API
-    ↓
+    |
+    v
 PostgreSQL
+```
 
 ## Features
 
@@ -36,7 +40,7 @@ PostgreSQL
 - Customer Not Found Validation (404)
 
 ## Project Structure
-
+```text
 customer-api-tests
 │
 ├── assertions/
@@ -45,6 +49,7 @@ customer-api-tests
 ├── fixtures/
 ├── tests/
 └── utils/
+```
 
 ## Run Tests
 
