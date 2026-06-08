@@ -54,14 +54,20 @@ customer-api-tests
 ## Run Tests
 
 ```bash
-npm install  
+npm install
 npx playwright test 
 ```
 
 ## Related Repositories
 
-- customer-api
-- customer-sdk
+
+## Related Repositories
+
+| Repository | Description |
+|------------|-------------|
+| [customer-api](https://github.com/<username>/customer-api) | Node.js + Express Customer API |
+| [customer-sdk](https://github.com/<username>/customer-sdk) | OpenAPI-generated TypeScript SDK |
+
 
 ## Planned Enhancements
 
