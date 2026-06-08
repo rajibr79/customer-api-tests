@@ -53,7 +53,10 @@ customer-api-tests
 
 ## Run Tests
 
-bash npm install  npx playwright test 
+```bash
+npm install  
+npx playwright test 
+```
 
 ## Related Repositories
 
