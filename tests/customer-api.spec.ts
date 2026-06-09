@@ -1,6 +1,6 @@
-import {test, expect, trackCustomer, untrackCustomer} from '../fixtures/customerCleanup';
+import {test, expect, trackCustomer, untrackCustomer} from '../fixtures/customerFixture';
 import {expectValidCustomer} from '../assertions/customerAssertions';
-import { customerClient } from '../clients/customerClient';
+
 import { CustomerFactory } from '../factories/customerFactory';
 import { validateSchema } from '../assertions/schemaAssertions';
 import {customerSchema} from '../schemas/customer.schema';
@@ -10,7 +10,7 @@ import {expectBadRequest, expectConflict, expectNotFound} from '../assertions/ap
 
 
 
-test('Get All Customers', async() => {
+test('Get All Customers', async({customerClient}) => {
 
     const customers = await customerClient.getCustomers();
 
@@ -19,7 +19,7 @@ test('Get All Customers', async() => {
     }
 });
 
-test('create customer', async() => {
+test('create customer', async({customerClient}) => {
 
 
     const customerData =  CustomerFactory.validCustomer();
@@ -37,7 +37,7 @@ test('create customer', async() => {
     untrackCustomer(customer.id);
     });
 
-test('should not allow duplicate email', async () => {
+test('should not allow duplicate email', async ({customerClient}) => {
   const customerData = CustomerFactory.validCustomer();
 
   const customer = await customerClient.createCustomer({
@@ -62,7 +62,7 @@ test('should not allow duplicate email', async () => {
   }
 });
 
-test('should return 404 for missing customer', async () => {
+test('should return 404 for missing customer', async ({customerClient}) => {
   try {
     await customerClient.getCustomerById({
       id: crypto.randomUUID()
@@ -76,7 +76,7 @@ test('should return 404 for missing customer', async () => {
   }
 });
 
-test('should return 400 for invalid email', async () => {
+test('should return 400 for invalid email', async ({customerClient}) => {
     const customerData = CustomerFactory.invalidCustomer()
 
     try {

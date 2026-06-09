@@ -1,7 +1,13 @@
-import {test as base} from '@playwright/test';
-import { customerClient } from '../clients/customerClient';
+import {test as base, expect} from '@playwright/test';
+import {customerClient} from '../clients/customerClient';
+import {
+    CustomersApi,
+    Configuration
+ } from 'customer-sdk'
 
-
+ import type {
+    TestFixtures
+ } from './types';
 
 const customerIds= new Set<string>();
 
@@ -9,7 +15,17 @@ export function trackCustomer(id: string) {
     customerIds.add(id);
 }
 
-export const test = base.extend({});
+export const test = base.extend<TestFixtures>({
+    customerClient: async ({}, use)=> {
+    const client = new CustomersApi(
+    new Configuration({
+        basePath:
+        process.env.CUSTOMER_API_BASE_URL ?? 'http://localhost:3001'
+    })
+);
+    await use(client);
+}
+})
 
 test.afterEach(async () => {
     for (const id of customerIds) {
@@ -37,4 +53,4 @@ export function cleartrackedCustomers() {
     customerIds.clear();
 }
 
-export {expect} from '@playwright/test';
+export {expect};
