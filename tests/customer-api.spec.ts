@@ -2,6 +2,9 @@ import {test, expect, trackCustomer, untrackCustomer} from '../fixtures/customer
 import {expectValidCustomer} from '../assertions/customerAssertions';
 import { customerClient } from '../clients/customerClient';
 import { CustomerFactory } from '../factories/customerFactory';
+import { validateSchema } from '../assertions/schemaAssertions';
+import {customerSchema} from '../schemas/customer.schema';
+
 
 import {expectBadRequest, expectConflict, expectNotFound} from '../assertions/apiAssertions';
 
@@ -23,7 +26,8 @@ test('create customer', async() => {
 
     const customer = await customerClient.createCustomer({ 
         createCustomerRequest: customerData });
-    expectValidCustomer(customer);
+
+    validateSchema(customer, customerSchema);
     if(!customer.id) {
         throw new Error('Customer ID not returned from API');
     }
